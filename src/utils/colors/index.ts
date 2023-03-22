@@ -1,6 +1,6 @@
 const COLORS = {
   background:'#f2f2f2',
-  card_background: '#707070'
+  card_background: '#E3C0C0'
 }
 
 export {COLORS}
