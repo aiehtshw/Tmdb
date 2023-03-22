@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { FlatList, SafeAreaView, StyleSheet, Text, View } from "react-native";
 import { COLORS } from "../../utils/colors";
 import MovieCard from "../../components/movieCard";
 import { Devices } from "../../config";
 import Background from "../../components/background";
+import RBSheet from "react-native-raw-bottom-sheet";
+import MovieDetails from "../../components/MovieDetails";
 
 const HomeScreen = ({navigation}) => {
   const Movies = [
@@ -34,6 +36,31 @@ const HomeScreen = ({navigation}) => {
     },
 
   ]
+  //Opening PopUp
+  const popUpRef = useRef();
+  //Controlling Flow Which is Open PopUp
+  const initialState = useRef(false);
+  //Update State with Selected Movie/TV
+  const [selected,setSelected] = useState();
+  /**
+   * For Opening PopUp With Movie/TV Show Which Is Choosen by User
+   * */
+  const openPopUp = (item) =>{
+    if(!initialState.current)
+      initialState.current = true;
+    setSelected(item);
+  }
+  /**
+   * Update Ref When PopUp Closed to false
+   * */
+  const whenPopUpClosed = () => {
+    initialState.current=false;
+  }
+  useEffect(()=>{
+    if(initialState.current)
+      popUpRef.current.open();
+  },[selected])
+
   return(
     <Background>
       <FlatList
@@ -44,16 +71,58 @@ const HomeScreen = ({navigation}) => {
             uri={item.uri}
             movie_title={item.movie_title}
             brief_overview={item.brief_overview}
+            onPress={()=>{openPopUp(item)}}
           />
         )}
       />
+      <RBSheet
+        ref={popUpRef}
+        height={Devices.height*0.75}
+        openDuration={250}
+        dragFromTopOnly={true}
+        closeOnDragDown={true}
+        onClose={whenPopUpClosed}
+        customStyles={{
+          container: {
 
+            alignItems: "center",
+            borderTopRightRadius:20,
+            borderTopLeftRadius:20,
+          },
+          wrapper: {
+          },
+          draggableIcon: {
+            height:4,
+            width:35,
+            borderRadius:10,
+            backgroundColor: COLORS.black,
+          },
+        }}
+      >
+        {
+          selected!==undefined &&
+          <View style={[styles.popUpContainer]}>
+            <MovieDetails
+              uri={selected.uri}
+              movie_title={selected.movie_title}
+              brief_overview={selected.brief_overview}
+            />
+          </View>
+        }
+
+      </RBSheet>
     </Background>
   );
 }
 const styles = StyleSheet.create({
   container: {
 
-  }
+  },
+  popUpContainer: {
+    width: '100%',
+    height: '100%',
+    backgroundColor: COLORS.pop_up_background,
+  },
+
 })
 export default HomeScreen;

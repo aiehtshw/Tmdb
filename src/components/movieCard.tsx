@@ -8,7 +8,7 @@ import PropTypes from "prop-types";
 const MovieCard = (props) => {
       return(
 
-        <TouchableOpacity style = {styles.container}>
+        <TouchableOpacity style = {styles.container} onPress={props.onPress}>
 
           <View style={styles.card}>
 
@@ -21,7 +21,8 @@ const MovieCard = (props) => {
 
               <View style={styles.info_container}>
                 <Text style={styles.title}>{props.movie_title}</Text>
-                <View style={{borderWidth:0.5}}/>
+                <View style={{borderBottomWidth:0.5,borderBottomColor:'#fff'}}/>
+                <View style={{borderBottomWidth:0.5}}/>
                 <Text>{props.brief_overview}</Text>
               </View>
 
@@ -36,7 +37,7 @@ MovieCard.propTypes = {
   uri:  PropTypes.string.isRequired,
   movie_title:  PropTypes.string.isRequired,
   brief_overview:  PropTypes.string.isRequired,
-
+  onPress: PropTypes.func.isRequired,
 }
 const styles = StyleSheet.create({
   container: {
@@ -63,7 +64,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontWeight:'bold',
-    alignSelf: 'flex-end',
+    alignSelf: 'flex-start',
     fontSize:RFValue(20)
   },
   overview: {
