@@ -1,17 +1,20 @@
 import React from "react";
 import { SafeAreaView, StyleSheet, Text, View } from "react-native";
 import { COLORS } from "../../utils/colors";
+import MovieCard from "../../components/movieCard";
+import { Devices } from "../../config";
+import Background from "../../components/background";
 
 const HomeScreen = ({navigation}) => {
   return(
-    <View style={styles.container}>
-
-    </View>
+    <Background>
+      <MovieCard/>
+    </Background>
   );
 }
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: COLORS.background
+
   }
 })
 export default HomeScreen;
