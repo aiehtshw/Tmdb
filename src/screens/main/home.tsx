@@ -36,6 +36,7 @@ const HomeScreen = ({navigation}) => {
    * Update Ref When PopUp Closed to false
    * */
   const whenPopUpClosed = () => {
+    setSelected('');
     initialState.current=false;
   }
   /**
@@ -67,7 +68,8 @@ const HomeScreen = ({navigation}) => {
    * Movie List
    * */
   useEffect(()=>{
-    setMovies(MultiSearchState.results)
+
+    setMovies(MultiSearchState.results.filter((x) => x.media_type != 'person'))
   },[MultiSearchState.results])
   return(
     <Background>
@@ -107,8 +109,9 @@ const HomeScreen = ({navigation}) => {
 
       <RBSheet
         ref={popUpRef}
-        height={Devices.height*0.75}
+        height={Devices.height*0.7}
         openDuration={250}
+        closeDuration={350}
         dragFromTopOnly={true}
         closeOnDragDown={true}
         onClose={whenPopUpClosed}
@@ -135,7 +138,10 @@ const HomeScreen = ({navigation}) => {
             <MovieDetails
               uri={Configs.IMAGE_SOURCE +selected.poster_path}
               movie_title={selected.title!=undefined? selected.title: selected.name}
-              brief_overview={selected.brief_overview}
+              brief_overview={selected.overview}
+              media_type={selected.media_type==="movie" ? Languages[DEFAULT_LANGUAGE].movie: Languages[DEFAULT_LANGUAGE].tv}
+              release_date={selected.release_date}
+              vote_average={selected.vote_average}
             />
           </View>
         }
