@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import { MultiSearchAPIResponse } from "../../../../services/search/multisearch/response";
-import { showMessageTypes } from "../../../../utils/helpers/message";
+import { showMessage, showMessageTypes } from "../../../../utils/helpers/message";
 import MultiSearchAPI from "../../../../services/search/multisearch";
 import { Languages } from "../../../../config";
 import { DEFAULT_LANGUAGE } from "../../../../config/language";

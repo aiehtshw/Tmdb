@@ -23,6 +23,7 @@ export const Devices = {
  * Config Values
  * */
 export const Configs = {
+  EMPTY_POSTER: 'https://img-s2.onedio.com/id-62b1b20262b86c2d2bfc73b1/rev-0/w-635/f-jpg/s-c96b4490c9b364fcf0e0ed4fd8ea965f36201d6f.jpg',
   IMAGE_SOURCE:'https://image.tmdb.org/t/p/w500',
   hostApi: 'https://api.themoviedb.org/3',
   hostApiHeaders: {

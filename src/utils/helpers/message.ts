@@ -30,7 +30,7 @@ export function showMessage({  ...props }: Props) {
           : COLORS.info_message;
   showMessageRNFM({
     backgroundColor,
-
+    duration:450,
     message: props.title,
     description: props.description,
     icon:type,

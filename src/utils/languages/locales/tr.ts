@@ -5,5 +5,6 @@ export default {
   search:'Aramak İstediğiniz Filmi Yazınız',
   loading: 'Yükleniyor...',
   movie:'Film',
-  tv: 'TV'
+  tv: 'TV',
+  not_found: 'Aradığınız İçeriğe Ulaşamadık...'
 }

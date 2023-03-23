@@ -11,6 +11,8 @@ import { useDispatch } from "react-redux";
 import { fetchMultiSearch } from "../../redux/reducers/search/multisearch/MultiSearchSlice";
 import { useAppSelector } from "../../redux/store";
 import { DEFAULT_LANGUAGE } from "../../config/language";
+import { showMessage } from "../../utils/helpers/message";
+import { RFValue } from "react-native-responsive-fontsize";
 const HomeScreen = ({navigation}) => {
   const MultiSearchState = useAppSelector((state) => state.MultiSearch);
   const dispatch = useDispatch();
@@ -68,9 +70,16 @@ const HomeScreen = ({navigation}) => {
    * Movie List
    * */
   useEffect(()=>{
-
     setMovies(MultiSearchState.results.filter((x) => x.media_type != 'person'))
   },[MultiSearchState.results])
+  useEffect(() => {
+    if(MultiSearchState.search_state === 'Fail')
+      showMessage({
+        type: 'danger',
+        title: 'Bağlantı Hatası',
+        description: 'Sunucuya Bağlanılamıyor'
+      });
+  },[MultiSearchState.search_state])
   return(
     <Background>
       <View style={styles.searchBar}>
@@ -91,13 +100,17 @@ const HomeScreen = ({navigation}) => {
                 //Text style of the Spinner Text
                 textStyle={{color: '#000',}}/>
             </>)
-          :(<>
+          :MultiSearchState.total_results !== 0
+            ? (<>
             <FlatList
               data={Movies}
               keyExtractor={(item, index) => index}
               renderItem={({ item }) => (
                 <MovieCard
-                  uri={Configs.IMAGE_SOURCE + item.poster_path}
+                  uri={item.poster_path != null
+                    ? Configs.IMAGE_SOURCE + item.poster_path
+                    : Configs.EMPTY_POSTER
+                  }
                   movie_title={item.title!=undefined? item.title: item.name}
                   brief_overview={item.overview}
                   onPress={()=>{openPopUp(item)}}
@@ -105,6 +118,12 @@ const HomeScreen = ({navigation}) => {
               )}
             />
           </>)
+          :(
+            <View style={{marginTop: 20,width:'90%',height:200,justifyContent:'center',alignSelf: 'center'}}>
+              <Text style={{color:COLORS.text_soft,fontWeight:'bold',fontSize:RFValue(20)}}>{Languages[DEFAULT_LANGUAGE].not_found}</Text>
+            </View>
+
+          )
       }
 
       <RBSheet
