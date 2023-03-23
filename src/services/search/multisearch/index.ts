@@ -2,6 +2,7 @@ import axios from 'axios'
 import { API_KEY, Configs } from "../../../config";
 import ServicesRoutes from "../../ServicesRoutes";
 import {MultiSearchAPIResponse} from "./response";
+import { showMessage } from "../../../utils/helpers/message";
 
 export default class MultiSearchAPI {
   // @ts-ignore
