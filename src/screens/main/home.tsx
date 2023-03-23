@@ -13,6 +13,7 @@ import { useAppSelector } from "../../redux/store";
 import { DEFAULT_LANGUAGE } from "../../config/language";
 import { showMessage } from "../../utils/helpers/message";
 import { RFValue } from "react-native-responsive-fontsize";
+import tr from "../../utils/languages/locales/tr";
 const HomeScreen = ({navigation}) => {
   const MultiSearchState = useAppSelector((state) => state.MultiSearch);
   const dispatch = useDispatch();
@@ -26,6 +27,7 @@ const HomeScreen = ({navigation}) => {
   const [selected,setSelected] = useState('');
   //For hold searchbar's text
   const [search,setSearch] = useState();
+  const [searched,setSearched] = useState(false)
   /**
    * For Opening PopUp With Movie/TV Show Which Is Choosen by User
    * */
@@ -46,7 +48,8 @@ const HomeScreen = ({navigation}) => {
    * When you press on icon this function will send request
    * */
   const SearchEngine = async () =>{
-    setMovies({})
+    setMovies({});
+    setSearched(true);
     dispatch(
       fetchMultiSearch({
         api_key: API_KEY,
@@ -119,6 +122,7 @@ const HomeScreen = ({navigation}) => {
             />
           </>)
           :(
+            searched && MultiSearchState.search_state !== 'Fail' &&
             <View style={{marginTop: 20,width:'90%',height:200,justifyContent:'center',alignSelf: 'center'}}>
               <Text style={{color:COLORS.text_soft,fontWeight:'bold',fontSize:RFValue(20)}}>{Languages[DEFAULT_LANGUAGE].not_found}</Text>
             </View>
