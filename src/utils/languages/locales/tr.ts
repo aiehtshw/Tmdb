@@ -2,5 +2,6 @@
  * Turkish Word/Sentence List
  * */
 export default {
-  search:'Aramak İstediğiniz Filmi Yazınız'
+  search:'Aramak İstediğiniz Filmi Yazınız',
+  loading: 'Yükleniyor...',
 }

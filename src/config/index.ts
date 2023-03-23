@@ -23,10 +23,11 @@ export const Devices = {
  * Config Values
  * */
 export const Configs = {
+  IMAGE_SOURCE:'https://image.tmdb.org/t/p/w500',
   hostApi: 'https://api.themoviedb.org/3',
   hostApiHeaders: {
     headers: {
-      
+
     }
   }
 }

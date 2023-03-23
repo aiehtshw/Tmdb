@@ -14,16 +14,16 @@ const MovieCard = (props) => {
 
             <View style={styles.poster_image}>
               <Image source={{uri:props.uri}}
-                     style = {{ width: '90%', height: '90%',alignSelf: 'center'}}/>
+                     style = {{  resizeMode: 'contain',width: '90%', height: '90%',alignSelf: 'center'}}/>
             </View>
 
             <View style={styles.movie_info}>
 
               <View style={styles.info_container}>
-                <Text style={styles.title}>{props.movie_title}</Text>
+                <Text style={styles.title} >{props.movie_title}</Text>
                 <View style={{borderBottomWidth:0.5,borderBottomColor:'#fff'}}/>
                 <View style={{borderBottomWidth:0.5}}/>
-                <Text>{props.brief_overview}</Text>
+                <Text  numberOfLines={8} ellipsizeMode="tail">{props.brief_overview}</Text>
               </View>
 
             </View>
@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
   title: {
     fontWeight:'bold',
     alignSelf: 'flex-start',
-    fontSize:RFValue(20)
+    fontSize:RFValue(15)
   },
   overview: {
     fontSize:RFValue(13)
