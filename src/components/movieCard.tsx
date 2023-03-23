@@ -41,7 +41,7 @@ MovieCard.propTypes = {
 }
 const styles = StyleSheet.create({
   container: {
-    marginTop:50,
+    marginTop:10,
     height:200,
     borderRadius:20,
     alignSelf:"center",

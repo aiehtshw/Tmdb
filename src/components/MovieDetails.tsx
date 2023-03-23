@@ -29,7 +29,7 @@ const MovieDetails = (props) => {
   );
 }
 
-MovieDetails.prototype={
+MovieDetails.prototype = {
   uri:  PropTypes.string.isRequired,
   movie_title:  PropTypes.string.isRequired,
   brief_overview:  PropTypes.string.isRequired,
