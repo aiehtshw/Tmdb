@@ -18,3 +18,16 @@ export const Devices = {
   height: HEIGHT_SCREEN,
   width: WIDTH_SCREEN,
 }
+
+/**
+ * Config Values
+ * */
+export const Configs = {
+  hostApi: 'https://api.themoviedb.org/3',
+  hostApiHeaders: {
+    headers: {
+      
+    }
+  }
+}
+export const API_KEY = '10ca17220b316da5a239a643ee071b4b';

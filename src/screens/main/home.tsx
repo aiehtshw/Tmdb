@@ -6,6 +6,7 @@ import { Devices } from "../../config";
 import Background from "../../components/background";
 import RBSheet from "react-native-raw-bottom-sheet";
 import MovieDetails from "../../components/MovieDetails";
+import SearchBar from "../../components/searchBar";
 
 const HomeScreen = ({navigation}) => {
   const Movies = [
@@ -41,7 +42,9 @@ const HomeScreen = ({navigation}) => {
   //Controlling Flow Which is Open PopUp
   const initialState = useRef(false);
   //Update State with Selected Movie/TV
-  const [selected,setSelected] = useState();
+  const [selected,setSelected] = useState('');
+  //For hold searchbar's text
+  const [search,setSearch] = useState();
   /**
    * For Opening PopUp With Movie/TV Show Which Is Choosen by User
    * */
@@ -56,6 +59,16 @@ const HomeScreen = ({navigation}) => {
   const whenPopUpClosed = () => {
     initialState.current=false;
   }
+  /**
+   * Function of SearchIcon's onPress button
+   * When you press on icon this function will send request
+   * */
+  const SearchEngine = async () =>{
+    console.log(search);
+  }
+  /**
+   * For Open PopUp
+   * */
   useEffect(()=>{
     if(initialState.current)
       popUpRef.current.open();
@@ -63,6 +76,14 @@ const HomeScreen = ({navigation}) => {
 
   return(
     <Background>
+      <View style={styles.searchBar}>
+        <SearchBar
+          setSearch={setSearch}
+          search={search}
+          iconOnPress={SearchEngine}
+        />
+      </View>
+      <View style={{marginTop: 20}}/>
       <FlatList
         data={Movies}
         keyExtractor={(item, index) => index}
@@ -111,12 +132,24 @@ const HomeScreen = ({navigation}) => {
         }
 
       </RBSheet>
+      <View style={{marginTop: 20}}/>
     </Background>
   );
 }
 const styles = StyleSheet.create({
   container: {
 
+  },
+  searchBar:{
+    borderWidth:0.5,
+    borderColor:COLORS.white,
+    marginTop:50,
+    flexDirection:"row",
+    borderRadius: 10,
+    width: '90%',
+    height: 50,
+    alignSelf: 'center',
+    backgroundColor: COLORS.card_background
   },
   popUpContainer: {
     width: '100%',
